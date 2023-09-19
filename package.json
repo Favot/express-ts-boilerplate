@@ -13,7 +13,9 @@
     "migrate:deploy": "prisma migrate deploy",
     "generate:prisma": "prisma generate",
     "seed": "prisma db seed",
-    "docker:dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/index.ts"
+    "docker:dev": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/index.ts",
+    "format": "prettier --check ./src",
+    "format:fix": "prettier --write ./src"
   },
   "keywords": [],
   "author": "Favot",
