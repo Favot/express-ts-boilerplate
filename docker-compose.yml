@@ -13,6 +13,11 @@ services:
       - PG_HOST=node_db
     depends_on:
       - node_express_db
+    env_file:
+      - .env
+    command: >
+      bash -c "npm run seed &&
+               node dist/index.js"
 
   node_express_db:
     container_name: node_express_db

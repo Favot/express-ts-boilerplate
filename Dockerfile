@@ -5,6 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+# Install Prisma CLI globally
+RUN npm install -g prisma
+
 # Copy Prisma schema
 COPY prisma ./prisma
 
