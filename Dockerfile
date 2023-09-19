@@ -8,17 +8,17 @@ RUN npm install
 # Install Prisma CLI globally
 RUN npm install -g prisma
 
+# Install nodemon for development
+RUN npm install -g nodemon
+
 # Copy Prisma schema
 COPY prisma ./prisma
 
 # Generate Prisma client
 RUN npx prisma generate
 
-COPY tsconfig.json ./
-COPY src ./src
-
-RUN npx tsc
+COPY . .
 
 EXPOSE 3000
 
-CMD [ "node", "dist/index.js" ]
+CMD [ "npm", "run", "docker:dev" ]

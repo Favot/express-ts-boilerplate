@@ -15,9 +15,12 @@ services:
       - node_express_db
     env_file:
       - .env
+    volumes:
+      - ./src:/app/src # Mount your local src directory to the container's src directory
+      - ./prisma:/app/prisma # Mount your local prisma directory to the container's prisma directory
     command: >
       bash -c "npm run seed &&
-               node dist/index.js"
+               npm run docker:dev"
 
   node_express_db:
     container_name: node_express_db
