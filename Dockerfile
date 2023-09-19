@@ -5,6 +5,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+# Copy Prisma schema
+COPY prisma ./prisma
+
+# Generate Prisma client
+RUN npx prisma generate
+
 COPY tsconfig.json ./
 COPY src ./src
 
