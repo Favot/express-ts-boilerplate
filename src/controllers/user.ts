@@ -3,7 +3,7 @@ import prisma from '../prismaClient'
 
 export const getUsers = async (
   _req: express.Request,
-  res: express.Response,
+  res: express.Response
 ) => {
   try {
     const users = await prisma.user.findMany()
@@ -22,14 +22,14 @@ interface GetUserByIdRequest extends express.Request {
 
 export const getUserById = async (
   req: GetUserByIdRequest,
-  res: express.Response,
+  res: express.Response
 ) => {
   try {
     const { id } = req.params
     const user = await prisma.user.findUnique({
       where: {
-        id: Number(id),
-      },
+        id: Number(id)
+      }
     })
     res.json(user)
   } catch (error) {
@@ -49,15 +49,15 @@ interface UpdateUserRequest extends express.Request {
 
 export const createUser = async (
   req: UpdateUserRequest,
-  res: express.Response,
+  res: express.Response
 ) => {
   try {
     const { name, email } = req.body
     const user = await prisma.user.create({
       data: {
         name,
-        email,
-      },
+        email
+      }
     })
     res.json(user)
   } catch (error) {
@@ -77,19 +77,19 @@ interface UpdateUserRequest extends express.Request {
 
 export const updateUser = async (
   req: UpdateUserRequest,
-  res: express.Response,
+  res: express.Response
 ) => {
   try {
     const { id } = req.params
     const { name, email } = req.body
     const user = await prisma.user.update({
       where: {
-        id: Number(id),
+        id: Number(id)
       },
       data: {
         name,
-        email,
-      },
+        email
+      }
     })
     res.json(user)
   } catch (error) {
@@ -105,14 +105,14 @@ interface DeleteUserRequest extends express.Request {
 
 export const deleteUser = async (
   req: DeleteUserRequest,
-  res: express.Response,
+  res: express.Response
 ) => {
   try {
     const { id } = req.params
     const user = await prisma.user.delete({
       where: {
-        id: Number(id),
-      },
+        id: Number(id)
+      }
     })
     res.json(user)
   } catch (error) {
