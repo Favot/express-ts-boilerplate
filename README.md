@@ -20,14 +20,12 @@ This project setup offers a development environment for a Node.js Express applic
 └── Dockerfile             # Dockerfile for building the app image
 ```
 
-test
-
 ### Getting Started:
 
 1. Clone the repository:
 
    ```
-   git clone [repository-url] && cd [repository-directory]
+   gh repo clone Favot/express-ts-boilerplate && cd express-ts-boilerplat
    ```
 
 2. Install project dependencies:
