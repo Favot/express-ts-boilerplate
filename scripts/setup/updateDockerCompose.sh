@@ -6,6 +6,11 @@ read -p "Enter the PostgreSQL user name: " postgresUser
 read -sp "Enter the PostgreSQL password: " postgresPassword
 echo ""
 
+# Export the PostgreSQL details for later scripts
+export postgresDb
+export postgresUser
+export postgresPassword
+
 # Update docker-compose.yml with user input
 sed -i.bak "s/PG_DB=node_live_db/PG_DB=$postgresDb/" docker-compose.yml
 sed -i.bak "s/POSTGRES_DB=node_live_db/POSTGRES_DB=$postgresDb/" docker-compose.yml
