@@ -87,10 +87,6 @@ sed -i.bak "s/POSTGRES_PASSWORD=12345/POSTGRES_PASSWORD=$postgresPassword/" dock
 rm docker-compose.yml.bak
 
 
-
-
-
-
 # Removing the existing git history
 rm -rf .git
 
