@@ -1,15 +1,20 @@
 import express from 'express'
-import prisma from '../prisma/prismaClient'
+import {
+  createUser,
+  deleteUser,
+  fetchAllUsers,
+  fetchUserById,
+  updateUser
+} from '../services/userService'
 
 export const getUsers = async (
   _req: express.Request,
   res: express.Response
 ) => {
   try {
-    const users = await prisma.user.findMany()
+    const users = fetchAllUsers()
     res.json(users)
   } catch (error) {
-    console.log('🚀 ~ file: user.ts:12 ~ error:', error)
     res.status(500).json({ error: 'Failed to retrieve users' })
   }
 }
@@ -26,39 +31,27 @@ export const getUserById = async (
 ) => {
   try {
     const { id } = req.params
-    const user = await prisma.user.findUnique({
-      where: {
-        id: Number(id)
-      }
-    })
+    const user = await fetchUserById(id)
     res.json(user)
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve user' })
   }
 }
 
-interface UpdateUserRequest extends express.Request {
-  params: {
-    id: string
-  }
+interface CreateUserRequest extends express.Request {
   body: {
     name: string
     email: string
   }
 }
 
-export const createUser = async (
-  req: UpdateUserRequest,
+export const createUserController = async (
+  req: CreateUserRequest,
   res: express.Response
 ) => {
   try {
     const { name, email } = req.body
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email
-      }
-    })
+    const user = createUser({ userData: { name, email } })
     res.json(user)
   } catch (error) {
     res.status(500).json({ error: 'Failed to create user' })
@@ -75,22 +68,15 @@ interface UpdateUserRequest extends express.Request {
   }
 }
 
-export const updateUser = async (
+export const updateUserController = async (
   req: UpdateUserRequest,
   res: express.Response
 ) => {
   try {
     const { id } = req.params
     const { name, email } = req.body
-    const user = await prisma.user.update({
-      where: {
-        id: Number(id)
-      },
-      data: {
-        name,
-        email
-      }
-    })
+
+    const user = updateUser({ userData: { id, name, email } })
     res.json(user)
   } catch (error) {
     res.status(500).json({ error: 'Failed to update user' })
@@ -103,17 +89,13 @@ interface DeleteUserRequest extends express.Request {
   }
 }
 
-export const deleteUser = async (
+export const deleteUserController = async (
   req: DeleteUserRequest,
   res: express.Response
 ) => {
   try {
     const { id } = req.params
-    const user = await prisma.user.delete({
-      where: {
-        id: Number(id)
-      }
-    })
+    const user = deleteUser({ id })
     res.json(user)
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete user' })
