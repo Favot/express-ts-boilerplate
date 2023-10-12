@@ -1,5 +1,5 @@
 import express from 'express'
-import prisma from '../prismaClient'
+import prisma from '../prisma/prismaClient'
 
 export const getUsers = async (
   _req: express.Request,
